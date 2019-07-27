@@ -1,0 +1,11 @@
+version: '2.1'
+
+services:
+  server:
+    build:
+      context: .
+    command: python3 app.py
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - 5000:5000

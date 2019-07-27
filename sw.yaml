@@ -1,0 +1,152 @@
+swagger: '2.0'
+info:
+  version: '1.1'
+  title: proteus
+  description: testing
+schemes:
+  - http
+  - https
+# securityDefinitions:
+#  basicAuth:
+#    type: basic
+consumes:
+  - application/json
+# host: localhost:5000
+host: 18.224.215.250:5000
+# basePath: /v1.0
+paths:
+  '/hello':
+    get:
+      tags:
+        - test
+      summary: test
+      produces:
+        - application/json
+      operationId: test
+#      parameters:
+#        - name: json
+#          in: body
+#          description: bla
+#          required: false
+#          schema:
+#            type: object
+#            properties:
+#              text:
+#                type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/response'
+  '/message':
+    post:
+      tags:
+        - messaging
+      summary: test
+      produces:
+        - application/json
+      operationId: text_message
+      parameters:
+        - name: json
+          in: body
+          description: bla
+          required: false
+          schema:
+            type: object
+            properties:
+              text:
+                type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/response'
+  '/voice':
+    post:
+      tags:
+        - messaging
+      summary: voice
+      consumes:
+        - multipart/form-data
+      produces:
+      #   - application/json
+        - audio/wav
+      operationId: voice_message
+      parameters:
+        - name: file
+          in: formData
+          description: The uploaded file data
+          required: true
+          type: file
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: file
+  '/upload':
+    post:
+      tags:
+        - files
+      summary: upload
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      operationId: upload
+      parameters:
+        - name: file
+          in: formData
+          description: The uploaded file data
+          required: true
+          type: file
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: file
+  '/download':
+    post:
+      tags:
+        - files
+      summary: download
+      produces:
+        # - application/json
+        - audio/wav
+      operationId: download
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: file
+  '/both':
+    post:
+      tags:
+        - files
+      summary: both
+      consumes:
+        - multipart/form-data
+      produces:
+        # - application/json
+        - audio/wav
+      operationId: both
+      parameters:
+        - name: file
+          in: formData
+          description: The uploaded file data
+          required: true
+          type: file
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: file
+definitions:
+  response:
+    type: object
+    properties:
+      status:
+        type: string
+      code:
+        type: number
+      result:
+        type: object
